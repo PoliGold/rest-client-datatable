@@ -2,6 +2,8 @@
  *
  */
 
+var myDraw = 1;
+
 function URLToArray (url) {
   var request = {};
   var pairs = url.substring(url.indexOf('?') + 1).split('&');
@@ -20,11 +22,11 @@ $(document).ready(function () {
         "processing": true,
         "searching": false,
         "ajax": {
-            "url": "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=1&size=10&sort=DESC&field=username",
+            "url": "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=1&size=10&sort=DESC&field=username",
             "beforeSend": function() {
               var myUrl = URLToArray(this.url);
               var pageNumber = (myUrl.start / myUrl.length) + 1;
-              this.url = "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=" + pageNumber + "&size=" + myUrl.length + "&sort=DESC&field=username";
+              this.url = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=" + pageNumber + "&size=" + myUrl.length + "&sort=DESC&field=username";
             },
             "dataFilter": function(data) {
                 var json = {};
@@ -48,7 +50,6 @@ $(document).ready(function () {
             {"data": "userupdate"},
             {"data": "active"},
             {"data": "email"},
-            {"data": "idd"},
             {"data": "actions"}
         ],
         "columnDefs": [{
@@ -59,7 +60,7 @@ $(document).ready(function () {
 
     $('#tabledata tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
-        var getUser = "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity" + data[0];
+        var getUser = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity" + data[0];
         $("#dialog").dialog({
             autoOpen: true,
             modal: true,
@@ -95,7 +96,7 @@ $(document).ready(function () {
     $('#tabledata tbody').on('click', '.updateUser', function() {
         // console.log(JSON.stringify(table.row($(this).parents('tr').data())));
         var userID = table.row($(this).parents('tr')).data();
-        var address = "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
+        var address = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
         // $('#dialog-form').each(function() {
         //     alert("stronzo");
         //     $(this).attr("title", "Update User with ID: " + userID.username);
@@ -130,7 +131,7 @@ $(document).ready(function () {
                     // console.log(dataJSON);
 
                     $.ajax({
-                        url: "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity",
+                        url: "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity",
                         data: JSON.stringify(dataJSON),
                         method: "PUT",
                         dataType: "json",
@@ -154,7 +155,7 @@ $(document).ready(function () {
 
     //ADD USER
     $('html').on('click', '.addUser', function() {
-        var address = "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
+        var address = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
 
         $("#dialog-form").dialog({
             autoOpen: true,
@@ -183,7 +184,7 @@ $(document).ready(function () {
                     // console.log(JSON.stringify(dataJSON));
 
                     $.ajax({
-                        url: "http://10.3.56.46:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity",
+                        url: "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity",
                         data: JSON.stringify(dataJSON),
                         method: "POST",
                         dataType: "json",

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Rest-Client</title>
+
+		<link rel="stylesheet" type="text/css" href="./css/jquery.dataTables.min.css">
+		<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+		<script src="./js/user-test.js"></script>
+		<link rel="stylesheet" type="text/css" href="../lib/jquery-ui/jquery-ui.css">
+		<script src="../lib/jquery-ui/jquery-ui.js"></script>
+	</head>
+	<body>
+		<div id="content" class="container">
+			<h1>Elenco Records</h1>
+			<table id="tabledata" class="display nowrap dataTable dtr-inline collapsed"	style="width: 100%;" role="grid" aria-describedby="example_info">
+				<thead>
+					<tr role="row">
+						<th class="sorting_asc" tabindex="0" aria-controls="example"
+							rowspan="1" colspan="1" style="width: 119px;" aria-sort="ascending"
+							aria-label="Name: activate to sort column descending">Username</th>
+						<th class="sorting" tabindex="0" aria-controls="example" style="width: 188px;"
+							aria-label="Position: activate to sort column ascending">Type</th>
+						<th class="sorting" tabindex="0" aria-controls="example" style="width: 89px;"
+							aria-label="Office: activate to sort column ascending">Name</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example" style="width: 34px;"
+							aria-label="Age: activate to sort column ascending">Surname</th>
+						<th class="sorting" tabindex="0" aria-controls="example" style="width: 80px;"
+							aria-label="Start date: activate to sort column ascending">Gender</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example" style="width: 0px;"
+							aria-label="Salary: activate to sort column ascending">Created</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example"	style="width: 0px;"
+							aria-label="Salary: activate to sort column ascending">Updated</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example"	style="width: 0px;"
+							aria-label="Salary: activate to sort column ascending">UserUpdate</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example"	style="width: 0px;"
+							aria-label="Salary: activate to sort column ascending">Active</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example"	style="width: 0px;"
+							aria-label="Salary: activate to sort column ascending">Email</th>
+						<th class="dt-body-right sorting" tabindex="0"
+							aria-controls="example"	style="width: 0px;"
+							aria-label="Salary: activate to sort column ascending">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="dialog" title="Confirmation Required" style="display: none;">
+			<p>
+				<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+				Would you like to proceed in deleting selected user?
+			</p>
+		</div>
+		
+		<!--  sezione form update -->
+		<div id="dialog-form" title="" style="display: none;">
+			<form class="updateform">
+		    	<label for="name">Name </label>
+		     	<input type="text" name="name" class="name"><br>
+		     	<label for="surname">Surname </label>
+		     	<input type="text" name="surname" class="surname"><br>
+
+				<label for="email">Email </label>
+		     	<input type="text" name="email" class="email"><br>
+
+		     	<label for="gender">Gender </label>
+		     	<input type="radio" name="sex" value="M" class="male"> Male
+		     	<input type="radio" name="sex" value="F" class="female"> Female
+
+		     	<input type="hidden" name="username" value="">
+				<input type="hidden" name="created" value= "1495016019419">
+				<input type="hidden" name="updated" value= "1495016019000">
+				<input type="hidden" name="active" value= "true">
+		     	<input type="hidden" name="type" value="EXTERNAL" readonly>
+				 <input type="hidden" name="userupdate" value="SYSTEM" readonly>
+			</form>
+		</div>
+		<button class="addUser">Add new User</button>
+	</body>
+</html>
