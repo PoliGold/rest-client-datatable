@@ -1,21 +1,18 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 	<html>
-	<head>
-	<meta charset="UTF-8">
-	<title>Rest-Client</title>
+		<head>
+			<meta charset="UTF-8">
+			<title>Rest-Client</title>
 
-	<link rel="stylesheet" type="text/css" href="./css/jquery.dataTables.min.css">
-	<script type="text/javascript" language="javascript" src="./js/jquery-1.12.4.js"></script>
-	<script type="text/javascript" language="javascript" src="./js/jquery.dataTables.min.js"></script>
-	<script src="./js/user-test.js"></script>
-	<link rel="stylesheet" type="text/css" href="./lib/jquery-ui/jquery-ui.css">
-	<script src="./lib/jquery-ui/jquery-ui.js"></script>
-
-
-	</head>
+			<link rel="stylesheet" type="text/css" href="./css/jquery.dataTables.min.css">
+			<script type="text/javascript" src="./js/jquery-1.12.4.js"></script>
+			<script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+			<script src="./js/user-test.js"></script>
+			<link rel="stylesheet" type="text/css" href="./lib/jquery-ui/jquery-ui.css">
+			<script src="./lib/jquery-ui/jquery-ui.js"></script>
+		</head>
 	<body>
-		<table id="tabledata" class="display nowrap dataTable dtr-inline collapsed"
-			style="width: 100%;" role="grid" aria-describedby="example_info">
+		<table id="tabledata" class="display nowrap dataTable dtr-inline collapsed"	style="width: 100%;" role="grid" aria-describedby="example_info">
 			<thead>
 				<tr role="row">
 					<th class="sorting_asc" tabindex="0" aria-controls="example"
@@ -51,43 +48,42 @@
 					<th class="dt-body-right sorting" tabindex="0"
 						aria-controls="example"	style="width: 0px;"
 						aria-label="Salary: activate to sort column ascending">Actions</th>
-
 				</tr>
 			</thead>
 			<tbody>
+			
 			</tbody>
 		</table>
 		<div id="dialog" title="Confirmation Required" style="display: none;">
+			<p>
+				<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+				Would you like to proceed in deleting selected user?
+			</p>
+		</div>
+		<!--  sezione form update -->
+		<div id="dialog-form" title="" style="display: none;">
+			<form class="updateform">
+		    	<label for="name">Name </label>
+		     	<input type="text" name="name" class="name"><br>
+		     	<label for="surname">Surname </label>
+		     	<input type="text" name="surname" class="surname"><br>
 
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Would you like to proceed in deleting selected user?</p>
+				<label for="email">Email </label>
+		     	<input type="text" name="email" class="email"><br>
 
+		     	<label for="gender">Gender </label>
+		     	<input type="radio" name="sex" value="M" class="male"> Male
+		     	<input type="radio" name="sex" value="F" class="female"> Female
+
+		     	<input type="hidden" name="username" value="">
+				<input type="hidden" name="created" value= "1495016019419">
+				<input type="hidden" name="updated" value= "1495016019000">
+				<input type="hidden" name="active" value= "true">
+		     	<input type="hidden" name="type" value="EXTERNAL" readonly>
+				 <input type="hidden" name="userupdate" value="SYSTEM" readonly>
+			</form>
 		</div>
 
-		<!--  sezione form update -->
-	<div id="dialog-form" title="" style="display: none;">
-		<form class="updateform">
-		     <label for="name">Name </label>
-		     <input type="text" name="name" class="name"><br>
-		     <label for="surname">Surname </label>
-		     <input type="text" name="surname" class="surname"><br>
-
-		     <label for="email">Email </label>
-		     <input type="text" name="email" class="email"><br>
-
-		     <label for="gender">Gender </label>
-		     <input type="radio" name="sex" value="M" class="male"> Male
-		     <input type="radio" name="sex" value="F" class="female"> Female
-
-		     <input type="hidden" name="username" value="">
-				 <input type="hidden" name="created" value= "1495016019419">
-				 <input type="hidden" name="updated" value= "1495016019000">
-				 <input type="hidden" name="active" value= "true">
-		     <input type="hidden" name="type" value="EXTERNAL" readonly>
-				 <input type="hidden" name="userupdate" value="SYSTEM" readonly>
-		</form>
-	</div>
-
-	<button class="addUser">Add new User</button>
-
+		<button class="addUser">Add new User</button>
 	</body>
-	</html>
+</html>
