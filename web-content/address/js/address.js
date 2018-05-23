@@ -5,40 +5,40 @@
 var myDraw = 1;
 
 function URLToArray (url) {
-  var request = {};
-  var pairs = url.substring(url.indexOf('?') + 1).split('&');
-  for (var i = 0; i < pairs.length; i++) {
-    if (!pairs[i])
-    continue;
-    var pair = pairs[i].split('=');
-    request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-  }
-  return request;
+	var request = {};
+	var pairs = url.substring(url.indexOf('?') + 1).split('&');
+	for (var i = 0; i < pairs.length; i++) {
+		if (!pairs[i])
+		continue;
+		var pair = pairs[i].split('=');
+		request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+	}
+	return request;
 }
 
 $(document).ready(function () {
-  var table = $('#tabledata').DataTable({
-    "serverSide": true,
-    "processing": true,
-    "searching": false,
-    "ajax": {
-      "url": "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=1&size=10&sort=DESC&field=username",
-            "beforeSend": function() {
-              var myUrl = URLToArray(this.url);
-              var pageNumber = (myUrl.start / myUrl.length) + 1;
-              this.url = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=" + pageNumber + "&size=" + myUrl.length + "&sort=DESC&field=username";
-            },
-            "dataFilter": function(data) {
-                var json = {};
-                var originalJson = jQuery.parseJSON(data);
-                json.recordsTotal = originalJson.totalElements;
-                json.recordsFiltered = originalJson.totalElements;
-                myDraw = myDraw + 1;
-                json.draw = myDraw;
-                json.data = originalJson.elements;
-                return JSON.stringify(json); // return JSON string
-            }
-        },
+	var table = $('#tabledata').DataTable({
+		"serverSide": true,
+		"processing": true,
+		"searching": false,
+		"ajax": {
+			"url": "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=1&size=10&sort=DESC&field=username",
+			"beforeSend": function() {
+				var myUrl = URLToArray(this.url);
+				var pageNumber = (myUrl.start / myUrl.length) + 1;
+				this.url = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=" + pageNumber + "&size=" + myUrl.length + "&sort=DESC&field=username";
+				},
+				"dataFilter": function(data) {
+					var json = {};
+					var originalJson = jQuery.parseJSON(data);
+					json.recordsTotal = originalJson.totalElements;
+                    json.recordsFiltered = originalJson.totalElements;
+                    myDraw = myDraw + 1;
+                    json.draw = myDraw;
+                    json.data = originalJson.elements;
+                    return JSON.stringify(json); // return JSON string
+                }
+         },
         "columns": [
             {"data": "username"},
             {"data": "type"},
@@ -51,8 +51,8 @@ $(document).ready(function () {
             {"data": "active"},
             {"data": "email"},
             {"data": "actions"}
-        ],
-        "columnDefs": [{
+
+            "columnDefs": [{
             "targets": -1,
             "defaultContent": "<button class=\"deleteUser\">Delete</button> <button class=\"updateUser\">Update</button>"
         }]
@@ -107,15 +107,15 @@ $(document).ready(function () {
             autoOpen: true,
             modal: true,
             open: function(event){
-              $('.ui-dialog-title').text("Update User with ID: " + userID.username);
-              // $(this).attr("title", "Update User with ID: " + userID.username);
-              $("input[type=text][name=name]").val(userID.name);
-              $("input[type=text][name=surname]").val(userID.surname);
-              $("input[type=text][name=email]").val(userID.email);
-              $("input[type=radio][name=gender]").val(userID.gender);
-              $("input[type=hidden][name=username]").val(userID.username);
-              $("input[type=hidden][name=type]").val(userID.type);
-            },
+                $('.ui-dialog-title').text("Update User with ID: " + userID.username);
+                // $(this).attr("title", "Update User with ID: " + userID.username);
+                $("input[type=text][name=name]").val(userID.name);
+                $("input[type=text][name=surname]").val(userID.surname);
+                $("input[type=text][name=email]").val(userID.email);
+                $("input[type=radio][name=gender]").val(userID.gender);
+                $("input[type=hidden][name=username]").val(userID.username);
+                $("input[type=hidden][name=type]").val(userID.type);
+
             width: screenWidth / 3,
             height: screenHeigth / 3,
             buttons: {
@@ -163,13 +163,13 @@ $(document).ready(function () {
             width: screenWidth / 3,
             height: screenHeigth / 3,
             open: function(event){
-              $('.ui-dialog-title').text("Add new user");
-              $("input[type=text][name=name]").val("");
-              $("input[type=text][name=surname]").val("");
-              $("input[type=text][name=email]").val("");
-              $("input[type=radio][name=gender]").val("");
-              $("input[type=hidden][name=username]").val("");
-              $("input[type=hidden][name=type]").val("EXTERNAL");
+                $('.ui-dialog-title').text("Add new user");
+                $("input[type=text][name=name]").val("");
+                $("input[type=text][name=surname]").val("");
+                $("input[type=text][name=email]").val("");
+                $("input[type=radio][name=gender]").val("");
+                $("input[type=hidden][name=username]").val("");
+                $("input[type=hidden][name=type]").val("EXTERNAL");
             },
             buttons: {
                 "Update Data": function() {
