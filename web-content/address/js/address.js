@@ -2,7 +2,7 @@
  *
  */
 
-var myDraw = 2;
+var myDraw = 1;
 var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
 
 function modUrlBeforeSend(obj){
