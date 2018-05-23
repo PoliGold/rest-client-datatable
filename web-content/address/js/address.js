@@ -8,7 +8,7 @@ var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets
 function modUrlBeforeSend(obj){
 	var myUrl = URLToArray(obj.url);
 	var pageNumber = (myUrl.start / myUrl.length) + 1;
-	obj.url = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;	
+	obj.url = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
 }
 
 function URLToArray (url) {
@@ -24,7 +24,7 @@ function URLToArray (url) {
 }
 
 $(document).ready(function () {
-	var table = $('#tabledata').DataTable({
+	var table = $('#address-table').DataTable({
 		"serverSide": true,
 		"processing": true,
 		"searching": false,
@@ -63,7 +63,7 @@ $(document).ready(function () {
         }]
     });
 
-    $('#tabledata tbody').on('click', '.deleteUser', function() {
+    $('#address-table tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
         var getUser = baseUrl + data[0];
         $("#dialog").dialog({
@@ -98,7 +98,7 @@ $(document).ready(function () {
     var screenHeigth = screen.height;
 
     //SUBMIT UPDATE DATA
-    $('#tabledata tbody').on('click', '.updateUser', function() {
+    $('#address-table tbody').on('click', '.updateUser', function() {
         // console.log(JSON.stringify(table.row($(this).parents('tr').data())));
         var userID = table.row($(this).parents('tr')).data();
 //        var address = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
