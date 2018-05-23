@@ -99,17 +99,13 @@ $(document).ready(function () {
 
     //SUBMIT UPDATE DATA
     $('#tabledata tbody').on('click', '.updateUser', function() {
-        // console.log(JSON.stringify(table.row($(this).parents('tr').data())));
         var userID = table.row($(this).parents('tr')).data();
-//        var address = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
-
 
         $("#dialog-form").dialog({
             autoOpen: true,
             modal: true,
             open: function(event){
                 $('.ui-dialog-title').text("Update User with ID: " + userID.username);
-                // $(this).attr("title", "Update User with ID: " + userID.username);
                 $("input[type=text][name=name]").val(userID.name);
                 $("input[type=text][name=surname]").val(userID.surname);
                 $("input[type=text][name=email]").val(userID.email);
@@ -126,7 +122,6 @@ $(document).ready(function () {
                     var email = $("input[type=text][name=email]").val();
                     console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
                     var gender = $("input[type=radio][name=gender]:checked").val();
-                    // $("input[type=hidden][name=username]").val((name+surname).toLowerCase());
                     var $form = $(".updateform");
                     var dataJSON = getFormData($form);
                     // console.log(dataJSON);
@@ -137,10 +132,6 @@ $(document).ready(function () {
                         method: "PUT",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
-//                        headers: {
-//                            'Content-Type': 'application/json',
-//                            'X-Auth-Token': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsbWFydGluaSIsImF1ZGllbmNlIjoid2ViIiwiY3JlYXRlZCI6MTQ5MDg4MDI2MTMwMCwiaXNzIjoiUkQiLCJzY29wZXMiOiJST0xFX1JEX1JFRkVSUklOR19QSFlTSUNJQU4sUk9MRV9SRF9TQ0hFRFVMRVIsUk9MRV9SRF9QRVJGT1JNSU5HX1RFQ0hOSUNJQU4sUk9MRV9SRF9SQURJT0xPR0lTVCxST0xFX1JEX1NVUEVSQURNSU4iLCJleHAiOjE0OTA4ODM4NjF9.71ZlD4qK2ZFPYNvgN7jJUIAs1VCYWO-u-r33qli5zeO2jH_8aL3W1SYtaEKgsVObi-vTw7WhW2wzYIl6WrqpEw'
-//                        },
                         success: function() {
                             alert('Success! All Data are update!');
                             $(this).dialog("close");
@@ -156,8 +147,6 @@ $(document).ready(function () {
 
     //ADD USER
     $('html').on('click', '.addUser', function() {
-//        var address = "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
-
         $("#dialog-form").dialog({
             autoOpen: true,
             modal: true,
@@ -182,7 +171,6 @@ $(document).ready(function () {
                     $("input[type=hidden][name=username]").val((name + surname).toLowerCase());
                     var $form = $(".updateform");
                     var dataJSON = getFormData($form);
-                    // console.log(JSON.stringify(dataJSON));
 
                     $.ajax({
                         url: baseUrl,
@@ -190,10 +178,6 @@ $(document).ready(function () {
                         method: "POST",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
-//                        headers: {
-//                            'Content-Type': 'application/json',
-//                            'X-Auth-Token': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsbWFydGluaSIsImF1ZGllbmNlIjoid2ViIiwiY3JlYXRlZCI6MTQ5MDg4MDI2MTMwMCwiaXNzIjoiUkQiLCJzY29wZXMiOiJST0xFX1JEX1JFRkVSUklOR19QSFlTSUNJQU4sUk9MRV9SRF9TQ0hFRFVMRVIsUk9MRV9SRF9QRVJGT1JNSU5HX1RFQ0hOSUNJQU4sUk9MRV9SRF9SQURJT0xPR0lTVCxST0xFX1JEX1NVUEVSQURNSU4iLCJleHAiOjE0OTA4ODM4NjF9.71ZlD4qK2ZFPYNvgN7jJUIAs1VCYWO-u-r33qli5zeO2jH_8aL3W1SYtaEKgsVObi-vTw7WhW2wzYIl6WrqpEw'
-//                        },
                         success: function() {
                             alert('Success! User created!');
                             $(this).dialog("close");
