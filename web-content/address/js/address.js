@@ -8,21 +8,21 @@ function URLToArray (url) {
   var request = {};
   var pairs = url.substring(url.indexOf('?') + 1).split('&');
   for (var i = 0; i < pairs.length; i++) {
-  if (!pairs[i])
-            continue;
-        var pair = pairs[i].split('=');
-        request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-     }
-     return request;
+    if (!pairs[i])
+    continue;
+    var pair = pairs[i].split('=');
+    request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+  }
+  return request;
 }
 
 $(document).ready(function () {
-    var table = $('#tabledata').DataTable({
-        "serverSide": true,
-        "processing": true,
-        "searching": false,
-        "ajax": {
-            "url": "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=1&size=10&sort=DESC&field=username",
+  var table = $('#tabledata').DataTable({
+    "serverSide": true,
+    "processing": true,
+    "searching": false,
+    "ajax": {
+      "url": "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity?criteria=userupdate:SYSTEM&page=1&size=10&sort=DESC&field=username",
             "beforeSend": function() {
               var myUrl = URLToArray(this.url);
               var pageNumber = (myUrl.start / myUrl.length) + 1;
