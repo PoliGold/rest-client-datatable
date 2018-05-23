@@ -5,16 +5,16 @@
 		<title>Address Dataset</title>
 
 		<!-- jquery stack -->
-		<script type="text/javascript" src="../lib/datatable-full/jQuery-1.12.3/jquery-1.12.3.min.js""></script>
+		<script type="text/javascript" src="../lib/datatable-full/jQuery-1.12.3/jquery-1.12.3.min.js"></script>
 		<script type="text/javascript" src="../lib/datatable-full/jQueryUI-1.12.1/jquery-ui.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../lib/datatable-full/jQueryUI-1.12.1/themes/base/jquery-ui.min.css"/>
-				
+
 		<!-- data table core -->
 		<link rel="stylesheet" type="text/css" href="../lib/datatable-full/datatables.min.css"/>
-		<script type="text/javascript" src="../lib/datatable-full/datatables.min.js"></script>		
+		<script type="text/javascript" src="../lib/datatable-full/datatables.min.js"></script>
 
 		<!-- entity crud core -->
-		<link rel="stylesheet" type="text/css" href="./css/address.css"/>		
+		<link rel="stylesheet" type="text/css" href="./css/address.css"/>
 		<script type="text/javascript" src="./js/address.js"></script>
 	</head>
 	<body>
@@ -57,42 +57,18 @@
 						</tr>
 					</thead>
 					<tbody>
-					
+
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div id="dialog" title="Confirmation Required" style="display: none;">
 				<p>
 					<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
 					Would you like to proceed in deleting selected user?
 				</p>
 			</div>
-			
-			<!--  sezione form update -->
-			<div id="dialog-form" title="" style="display: none;">
-				<form class="updateform">
-			    	<label for="name">Name </label>
-			     	<input type="text" name="name" class="name"><br>
-			     	<label for="surname">Surname </label>
-			     	<input type="text" name="surname" class="surname"><br>
-	
-					<label for="email">Email </label>
-			     	<input type="text" name="email" class="email"><br>
-	
-			     	<label for="gender">Gender </label>
-			     	<input type="radio" name="sex" value="M" class="male"> Male
-			     	<input type="radio" name="sex" value="F" class="female"> Female
-	
-			     	<input type="hidden" name="username" value="">
-					<input type="hidden" name="created" value= "1495016019419">
-					<input type="hidden" name="updated" value= "1495016019000">
-					<input type="hidden" name="active" value= "true">
-			     	<input type="hidden" name="type" value="EXTERNAL" readonly>
-					 <input type="hidden" name="userupdate" value="SYSTEM" readonly>
-				</form>
-			</div>
-			<button class="addUser">Add new User</button>
+			<button class="address-add">Add new User</button>
 		</div>
 	</body>
 </html>
