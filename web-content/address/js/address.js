@@ -63,6 +63,7 @@ $(document).ready(function () {
         }]
     });
 
+	    // DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
         var getUser = baseUrl + data[0];
@@ -82,7 +83,7 @@ $(document).ready(function () {
     });
 
 
-    // FORM TO JSON
+    // GET, FORM TO JSON
     function getFormData($form) {
         var unindexed_array = $form.serializeArray();
         var indexed_array = {};
@@ -105,26 +106,33 @@ $(document).ready(function () {
             autoOpen: true,
             modal: true,
             open: function(event){
+
+				// Visualize fields inside modal dialog
                 $('.ui-dialog-title').text("Update User with ID: " + userID.username);
+
+				// (for following values display NOT WORKING at the moment)
                 $("input[type=text][name=name]").val(userID.name);
                 $("input[type=text][name=surname]").val(userID.surname);
                 $("input[type=text][name=email]").val(userID.email);
                 $("input[type=radio][name=gender]").val(userID.gender);
                 $("input[type=hidden][name=username]").val(userID.username);
                 $("input[type=hidden][name=type]").val(userID.type);
+				// (above values display NOT WORKING at the moment)
             },
-            width: screenWidth / 3,
-            height: screenHeigth / 3,
+            width: screenWidth / 1.80,
+            height: screenHeigth / 1.80,
             buttons: {
                 "Update Data": function() {
+
+					// assign values to the var and compose the json
                     var name = $("input[type=text][name=name]").val();
                     var surname = $("input[type=text][name=surname]").val();
                     var email = $("input[type=text][name=email]").val();
                     console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
                     var gender = $("input[type=radio][name=gender]:checked").val();
-                    var $form = $(".updateform");
+					var username =  $("input[type=hidden][name=username]").val(userID.username);
+                    var $form = $(".address-update");
                     var dataJSON = getFormData($form);
-                    // console.log(dataJSON);
 
                     $.ajax({
                         url: baseUrl,
@@ -146,13 +154,15 @@ $(document).ready(function () {
     });
 
     //ADD USER
-    $('html').on('click', '.addUser', function() {
+    $('html').on('click', '.address-add', function() {
         $("#dialog-form").dialog({
             autoOpen: true,
             modal: true,
             width: screenWidth / 3,
             height: screenHeigth / 3,
             open: function(event){
+
+				// reset fields
                 $('.ui-dialog-title').text("Add new user");
                 $("input[type=text][name=name]").val("");
                 $("input[type=text][name=surname]").val("");
@@ -163,15 +173,19 @@ $(document).ready(function () {
             },
             buttons: {
                 "Update Data": function() {
+
+					// assign values to the fields
                     var name = $("input[type=text][name=name]").val();
                     var surname = $("input[type=text][name=surname]").val();
                     var email = $("input[type=text][name=email]").val();
                     var gender = $("input:radio[name=sex]:checked").val();
-                    alert(gender);
                     $("input[type=hidden][name=username]").val((name + surname).toLowerCase());
+
+					//create json
                     var $form = $(".updateform");
                     var dataJSON = getFormData($form);
 
+					//ajax call
                     $.ajax({
                         url: baseUrl,
                         data: JSON.stringify(dataJSON),
