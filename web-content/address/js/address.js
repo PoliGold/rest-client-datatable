@@ -99,9 +99,9 @@ $(document).ready(function () {
 
     //SUBMIT UPDATE DATA
     $('#address-table tbody').on('click', '.updateUser', function() {
-        var userID = table.row($(this).parents('tr')).data();
+		var userID = table.row($(this).parents('tr')).data();
 
-        $("#dialog-form").dialog({
+        $(this).load('address-form.html').dialog({
             autoOpen: true,
             modal: true,
             open: function(event){
