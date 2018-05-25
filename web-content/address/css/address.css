@@ -1,9 +1,13 @@
 #address-container {
 	margin: 1em;
-	background-color: #e3e3e3;
+	background-color: white;
 	width: auto;
 }
 
 #address-dataset {
 
+}
+
+#dialog {
+	display: none !important; 
 }

@@ -64,11 +64,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
-
 	    // DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
@@ -89,9 +84,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
     // GET, FORM TO JSON
     function getFormData($form) {
         var unindexed_array = $form.serializeArray();
@@ -106,10 +98,6 @@ $(document).ready(function () {
     // GET WINDOWS SIZE
     var screenWidth = screen.width;
     var screenHeigth = screen.height;
-
-
-
-
 
 
     //SUBMIT UPDATE DATA
@@ -167,60 +155,6 @@ $(document).ready(function () {
         });
     });
 
-    // //ADD USER
-    // $('html').on('click', '.address-add', function() {
-    //     $("#dialog-form").dialog({
-    //         autoOpen: true,
-    //         modal: true,
-    //         width: screenWidth / 3,
-    //         height: screenHeigth / 3,
-    //         open: function(event){
-	//
-	// 			// reset fields
-    //             $('.ui-dialog-title').text("Add new user");
-    //             $("input[type=text][name=name]").val("");
-    //             $("input[type=text][name=surname]").val("");
-    //             $("input[type=text][name=email]").val("");
-    //             $("input[type=radio][name=gender]").val("");
-    //             $("input[type=hidden][name=username]").val("");
-    //             $("input[type=hidden][name=type]").val("EXTERNAL");
-    //         },
-    //         buttons: {
-    //             "Update Data": function() {
-	//
-	// 				// assign values to the fields
-    //                 var name = $("input[type=text][name=name]").val();
-    //                 var surname = $("input[type=text][name=surname]").val();
-    //                 var email = $("input[type=text][name=email]").val();
-    //                 var gender = $("input:radio[name=sex]:checked").val();
-    //                 $("input[type=hidden][name=username]").val((name + surname).toLowerCase());
-	//
-	// 				//create json
-    //                 var $form = $(".updateform");
-    //                 var dataJSON = getFormData($form);
-	//
-	// 				//ajax call
-    //                 $.ajax({
-    //                     url: baseUrl,
-    //                     data: JSON.stringify(dataJSON),
-    //                     method: "POST",
-    //                     dataType: "json",
-    //                     contentType: "application/json; charset=utf-8",
-    //                     success: function() {
-    //                         alert('Success! User created!');
-    //                         $(this).dialog("close");
-    //                     }
-    //                 });
-    //             },
-    //             "Cancel": function() {
-    //                 $(this).dialog("close");
-    //             }
-    //         }
-    //     });
-    // });
-
-
-
 	//NEW ADD USER
 	$('#address-container').on('click', '.address-add', function() {
 	   // var userID = table.row($(this).parents('tr')).data();
@@ -242,7 +176,7 @@ $(document).ready(function () {
 			width: screenWidth / 1.80,
 			height: screenHeigth / 1.80,
 			buttons: {
-				"Update Data": function() {
+				"Add User": function() {
 
 				   // assign values to the var and compose the json
 					var name = $("input[type=text][name=name]").val();
