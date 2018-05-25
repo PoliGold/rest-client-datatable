@@ -23,7 +23,17 @@ function URLToArray (url) {
 	return request;
 }
 
-var colID = $('#address-table').attr("data-f1")
+// GET, FORM TO JSON
+function getFormData(form) {
+	var unindexed_array = form.serializeArray();
+	var indexed_array = {};
+	unindexed_array[4] = {"name":"username","value":null};
+
+	$.map(unindexed_array, function(n, i) {
+		indexed_array[n['name']] = n['value'];
+	});
+	return indexed_array;
+}
 
 $(document).ready(function () {
 	var table = $('#address-table').DataTable({
@@ -59,7 +69,7 @@ $(document).ready(function () {
             {"data": "email"},
             {"data": "actions"}
             ],
-            "columnDefs": [	
+            "columnDefs": [
         	{
         		"targets": -1,
         		"defaultContent": "<button class=\"deleteUser\">Delete</button> <button class=\"updateUser\">Update</button>"
@@ -67,7 +77,7 @@ $(document).ready(function () {
             {
         		"targets": [1,5,6,7,8], // questo array contiene la posizione della colonna che non voglia vedere in tabella
         		"visible": false
-            }	
+            }
         	]
     });
 
