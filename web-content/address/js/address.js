@@ -23,6 +23,8 @@ function URLToArray (url) {
 	return request;
 }
 
+var colID = $('#address-table').attr("data-f1")
+
 $(document).ready(function () {
 	var table = $('#address-table').DataTable({
 		"serverSide": true,
@@ -57,10 +59,16 @@ $(document).ready(function () {
             {"data": "email"},
             {"data": "actions"}
             ],
-            "columnDefs": [{
-            "targets": -1,
-            "defaultContent": "<button class=\"deleteUser\">Delete</button> <button class=\"updateUser\">Update</button>"
-        }]
+            "columnDefs": [	
+        	{
+        		"targets": -1,
+        		"defaultContent": "<button class=\"deleteUser\">Delete</button> <button class=\"updateUser\">Update</button>"
+        	},
+            {
+        		"targets": [1,5,6,7,8], // questo array contiene la posizione della colonna che non voglia vedere in tabella
+        		"visible": false
+            }	
+        	]
     });
 
 
@@ -170,7 +178,7 @@ $(document).ready(function () {
                  $("input[type=text][name=surname]").val("");
                  $("input[type=text][name=email]").val("");
                  $("input[type=radio][name=gender]").val("");
-                 $("input[type=hidden][name=username]").val("");
+//                 $("input[type=hidden][name=username]").val("");
                  $("input[type=hidden][name=type]").val("EXTERNAL");
 			},
 			width: screenWidth / 1.80,
@@ -184,9 +192,10 @@ $(document).ready(function () {
 					var email = $("input[type=text][name=email]").val();
 					console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
 					var gender = $("input[type=radio][name=gender]:checked").val();
-					var username = $("input[type=hidden][name=username]").val((name + surname).toLowerCase());
+					var username = null;
 					var $form = $(".address-update");
 					var dataJSON = getFormData($form);
+					console.log(JSON.stringify(dataJSON));
 
 					$.ajax({
 						url: baseUrl,
