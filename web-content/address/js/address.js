@@ -73,7 +73,7 @@ $(document).ready(function () {
             "columnDefs": [
         	{
         		"targets": -1,
-        		"defaultContent": "<div id=\"actions\"><button class=\"deleteUser\">Delete</button> <button class=\"updateUser\">Update</button></div>"
+        		"defaultContent": "<div id=\"actions\"><button class=\"deleteUser\" title=\"Delete User\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button> <button class=\"updateUser\" title=\"Update User\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span></button></div>"
         	},
             {
         		"targets": [1,5,6,7,8], // questo array contiene la posizione della colonna che non voglia vedere in tabella

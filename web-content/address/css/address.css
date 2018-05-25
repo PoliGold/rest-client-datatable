@@ -8,6 +8,10 @@
 
 }
 
+#action-button {
+	width: 50px !important;
+}
+
 th {
 	width: 180px !important;
 	text-align: center !important;
