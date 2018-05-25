@@ -8,6 +8,15 @@
 
 }
 
+th {
+	width: 180px !important;
+	text-align: center !important;
+}
+
+#actions {
+	text-align: center !important; 
+}
+
 #dialog {
 	display: none !important; 
 }
