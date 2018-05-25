@@ -27,6 +27,7 @@ function URLToArray (url) {
 function getFormData(form) {
 	var unindexed_array = form.serializeArray();
 	var indexed_array = {};
+	console.log(unindexed_array);
 	unindexed_array[4] = {"name":"username","value":null};
 
 	$.map(unindexed_array, function(n, i) {
@@ -101,22 +102,9 @@ $(document).ready(function () {
         });
     });
 
-
-    // GET, FORM TO JSON
-    function getFormData($form) {
-        var unindexed_array = $form.serializeArray();
-        var indexed_array = {};
-
-        $.map(unindexed_array, function(n, i) {
-            indexed_array[n['name']] = n['value'];
-        });
-
-        return indexed_array;
-    }
     // GET WINDOWS SIZE
     var screenWidth = screen.width;
     var screenHeigth = screen.height;
-
 
     //SUBMIT UPDATE DATA
     $('#address-table tbody').on('click', '.updateUser', function() {
@@ -151,8 +139,8 @@ $(document).ready(function () {
                     console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
                     var gender = $("input[type=radio][name=gender]:checked").val();
 					var username =  $("input[type=hidden][name=username]").val(userID.username);
-                    var $form = $(".address-update");
-                    var dataJSON = getFormData($form);
+                    var form = $(".address-update");
+                    var dataJSON = getFormData(form);
 
                     $.ajax({
                         url: baseUrl,
@@ -188,7 +176,7 @@ $(document).ready(function () {
                  $("input[type=text][name=surname]").val("");
                  $("input[type=text][name=email]").val("");
                  $("input[type=radio][name=gender]").val("");
-//                 $("input[type=hidden][name=username]").val("");
+				 $("input[type=hidden][name=username]").val("");
                  $("input[type=hidden][name=type]").val("EXTERNAL");
 			},
 			width: screenWidth / 1.80,
@@ -202,9 +190,9 @@ $(document).ready(function () {
 					var email = $("input[type=text][name=email]").val();
 					console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
 					var gender = $("input[type=radio][name=gender]:checked").val();
-					var username = null;
-					var $form = $(".address-update");
-					var dataJSON = getFormData($form);
+					var username = $("input[type=hidden][name=username]").val(null);
+					var form = $(".address-update");
+					var dataJSON = getFormData(form);
 					console.log(JSON.stringify(dataJSON));
 
 					$.ajax({
