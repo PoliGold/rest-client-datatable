@@ -23,11 +23,10 @@ function URLToArray (url) {
 	return request;
 }
 
-// GET, FORM TO JSON
-function getFormData(form) {
+// GET, FORM TO JSON for ADD-USER
+function getFormDataAdd(form) {
 	var unindexed_array = form.serializeArray();
 	var indexed_array = {};
-	console.log(unindexed_array);
 	unindexed_array[4] = {"name":"username","value":null};
 
 	$.map(unindexed_array, function(n, i) {
@@ -35,6 +34,18 @@ function getFormData(form) {
 	});
 	return indexed_array;
 }
+
+// GET, FORM TO JSON for UPDATE-USER
+function getFormDataUpdate(form) {
+	var unindexed_array = form.serializeArray();
+	var indexed_array = {};
+
+	$.map(unindexed_array, function(n, i) {
+		indexed_array[n['name']] = n['value'];
+	});
+	return indexed_array;
+}
+
 
 $(document).ready(function () {
 	var table = $('#address-table').DataTable({
@@ -107,10 +118,10 @@ $(document).ready(function () {
     var screenHeigth = screen.height;
 
     //SUBMIT UPDATE DATA
-    $('#address-table tbody').on('click', '.updateUser', function() {
+    $('#address-container').on('click', '.updateUser', function() {
 		var userID = table.row($(this).parents('tr')).data();
 
-        $(this).load('address-form.html').dialog({
+        $('#address-form').load('address-form.html').dialog({
             autoOpen: true,
             modal: true,
             open: function(event){
@@ -140,7 +151,7 @@ $(document).ready(function () {
                     var gender = $("input[type=radio][name=gender]:checked").val();
 					var username =  $("input[type=hidden][name=username]").val(userID.username);
                     var form = $(".address-update");
-                    var dataJSON = getFormData(form);
+                    var dataJSON = getFormDataUpdate(form);
 
                     $.ajax({
                         url: baseUrl,
@@ -192,7 +203,7 @@ $(document).ready(function () {
 					var gender = $("input[type=radio][name=gender]:checked").val();
 					var username = $("input[type=hidden][name=username]").val(null);
 					var form = $(".address-update");
-					var dataJSON = getFormData(form);
+					var dataJSON = getFormDataAdd(form);
 					console.log(JSON.stringify(dataJSON));
 
 					$.ajax({
