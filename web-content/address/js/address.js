@@ -47,6 +47,27 @@ function getFormDataUpdate(form) {
 }
 
 
+//GET ELEMENTS INDEXES
+//function getIndex(element){ 
+//	var index = element.filter(
+//	function(index){
+//			for(var i=0; i<element.length; i++){
+//				console.log(index);
+//			}
+//		}
+//	)
+//}
+
+
+// MODFIFY ORDER PARAMETER
+function modOrderParam(table){
+		table.ajax.params().order = ["sorts[username]=-1"];
+		console.log(table.ajax.params().order);	
+	}
+
+
+
+
 $(document).ready(function () {
 	var table = $('#address-table').DataTable({
 		"serverSide": true,
@@ -93,13 +114,9 @@ $(document).ready(function () {
         	]
     });
 
-
-
-	$('#address-container').on('click','.DataTables_sort_icon', function() {
-		console.log(JSON.stringify(table.ajax.params()));
-	});
-
-
+	
+	$('#address-container').on('click','.DataTables_sort_icon', modOrderParam(table));
+	
 
 	    // DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
