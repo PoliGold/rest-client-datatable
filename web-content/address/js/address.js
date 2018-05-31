@@ -4,11 +4,18 @@
 
 var myDraw = 1;
 var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
+var sorts;
 
 function modUrlBeforeSend(obj){
 	var myUrl = URLToArray(obj.url);
 	var pageNumber = (myUrl.start / myUrl.length) + 1;
-	obj.url = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
+	var assembledURL = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
+	if(sorts != null){
+		assembledURL += "&"+sorts;
+	}
+	
+	obj.url = assembledURL;
+	console.log(obj.url);
 }
 
 function URLToArray (url) {
@@ -61,11 +68,14 @@ function getFormDataUpdate(form) {
 
 // MODFIFY ORDER PARAMETER
 function modOrderParam(table){
+	if(table.ajax.params().order[0].dir == "asc"){
+		table.ajax.params().order = ["sorts[username]=1"];
+	} else {
 		table.ajax.params().order = ["sorts[username]=-1"];
-		console.log(table.ajax.params().order);	
 	}
-
-
+	sorts = table.ajax.params().order;
+	console.log(table.ajax.params().order);	
+}
 
 
 $(document).ready(function () {
@@ -115,8 +125,16 @@ $(document).ready(function () {
     });
 
 	
-	$('#address-container').on('click','.DataTables_sort_icon', modOrderParam(table));
+	$('#address-container').on('click','.DataTables_sort_icon', function() {
+		modOrderParam(table);
+	});
 	
+	
+//	table.on('xhr', function(){
+//		console.log(table.ajax.params().order[0].dir);
+//		
+//		
+//	})
 
 	    // DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
