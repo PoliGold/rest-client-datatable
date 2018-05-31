@@ -3,26 +3,99 @@
 <html>
 <head>
 	<title>address-form</title>
+	<!-- boostrap 4 -->
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
 </head>
 	<body>
-		<div id="dialog-form" title="">
+		<div id="dialog-form" title="" class="container">
 			<form class="address-update">
-				<label for="name">Name </label>
-				<input type="text" name="name" class="name"><br>
-				<label for="surname">Surname </label>
-				<input type="text" name="surname" class="surname"><br>
-				<label for="email">Email </label>
-				<input type="text" name="email" class="email"><br>
-
-				<label for="gender">Gender </label>
-				<input type="radio" name="gender" value="M" class="male"> Male
-				<input type="radio" name="gender" value="F" class="female"> Female
-				<input type="hidden" name="username" value="">
-				<input type="hidden" name="created" value= "1495016019419">
-				<input type="hidden" name="updated" value= "1495016019000">
-				<input type="hidden" name="active" value= "true">
-				<input type="hidden" name="type" value="EXTERNAL" readonly>
-				<input type="hidden" name="userupdate" value="SYSTEM" readonly>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="name">Name </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="name" class="name">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="surname">Surname </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="surname" class="surname">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="email">Email </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="email" class="email">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="gender">Gender </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="radio" name="gender" value="M" class="male"> Male
+						<input type="radio" name="gender" value="F" class="female"> Female
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="username">Username </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="username" class="username">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="created">Created </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="created" class="created" value= "1495016019419">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="updated">Updated </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="updated" class="updated" value= "1495016019000">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="userupdate">Userupdate </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" name="userupdate" class="userupdate" value= "SYSTEM">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="active">Active </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="radio" name="active" value="true" class="activetrue"> Active True
+						<input type="radio" name="active" value="false" class="activefalse"> Active False
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="type">Type </label>
+					</div>
+					<div class="col-sm-9">
+						<input type="radio" name="type" value="REFERRING_PHYSICIAN" class="REFERRING_PHYSICIAN"> REFERRING_PHYSICIAN
+						<input type="radio" name="type" value="SCHEDULER" class="SCHEDULER"> SCHEDULER
+						<input type="radio" name="type" value="PERFORMING_TECHNICIAN" class="PERFORMING_TECHNICIAN"> PERFORMING_TECHNICIAN<br>
+						<input type="radio" name="type" value="RADIOLOGIST" class="RADIOLOGIST"> RADIOLOGIST
+						<input type="radio" name="type" value="ADMIN" class="ADMIN"> ADMIN
+						<input type="radio" name="type" value="EXTERNAL" class="EXTERNAL"> EXTERNAL
+					</div>
+				</div>
 			</form>
 		</div>
 	</body>

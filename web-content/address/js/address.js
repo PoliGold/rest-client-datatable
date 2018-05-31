@@ -94,6 +94,13 @@ $(document).ready(function () {
     });
 
 
+
+	$('#address-container').on('click','.DataTables_sort_icon', function() {
+		console.log(JSON.stringify(table.ajax.params()));
+	});
+
+
+
 	    // DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
@@ -138,8 +145,8 @@ $(document).ready(function () {
                 $("input[type=hidden][name=type]").val(userID.type);
 				// (above values display NOT WORKING at the moment)
             },
-            width: screenWidth / 1.80,
-            height: screenHeigth / 1.80,
+            width: screenWidth / 1.20,
+            height: screenHeigth / 1.20,
             buttons: {
                 "Update Data": function() {
 
@@ -199,12 +206,12 @@ $(document).ready(function () {
 					var name = $("input[type=text][name=name]").val();
 					var surname = $("input[type=text][name=surname]").val();
 					var email = $("input[type=text][name=email]").val();
-					console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
+					// console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
 					var gender = $("input[type=radio][name=gender]:checked").val();
 					var username = $("input[type=hidden][name=username]").val(null);
 					var form = $(".address-update");
 					var dataJSON = getFormDataAdd(form);
-					console.log(JSON.stringify(dataJSON));
+					// console.log(JSON.stringify(dataJSON));
 
 					$.ajax({
 						url: baseUrl,
