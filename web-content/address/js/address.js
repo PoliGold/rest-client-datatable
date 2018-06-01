@@ -4,18 +4,17 @@
 
 var myDraw = 1;
 var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
-var sorts;
+var orderColumn;
+var orderDir;
 
 function modUrlBeforeSend(obj){
 	var myUrl = URLToArray(obj.url);
 	var pageNumber = (myUrl.start / myUrl.length) + 1;
 	var assembledURL = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
-	if(sorts != null){
-		assembledURL += "&"+sorts;
+	if(orderDir != 0){
+		assembledURL += "&sorts["+orderColumn+"]="+orderDir;
 	}
-	
-	obj.url = assembledURL;
-	console.log(obj.url);
+	return assembledURL;
 }
 
 function URLToArray (url) {
@@ -42,6 +41,27 @@ function getFormDataAdd(form) {
 	return indexed_array;
 }
 
+//estrazione stringa object DataTable, converto array in stringa e cerco un carattere specifico in essa
+function extractorArray(obj){
+	var myString = obj.url.toString();
+	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
+	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
+	orderColumn = myString.charAt(idxCols + 26);
+	orderDir = myString.charAt(idxDir + 23);
+	}
+
+//mappatura sorting da Default DataTable a parametri Custom
+function mappingSorting(){
+	orderColumn = document.getElementById(orderColumn).textContent.toLowerCase();
+	if (orderDir == "a"){
+		orderDir = 1;
+	} else if (orderDir == "d"){
+		orderDir = -1;
+	} else {
+		orderDir = 0;
+	}
+}
+
 // GET, FORM TO JSON for UPDATE-USER
 function getFormDataUpdate(form) {
 	var unindexed_array = form.serializeArray();
@@ -53,31 +73,6 @@ function getFormDataUpdate(form) {
 	return indexed_array;
 }
 
-
-//GET ELEMENTS INDEXES
-//function getIndex(element){ 
-//	var index = element.filter(
-//	function(index){
-//			for(var i=0; i<element.length; i++){
-//				console.log(index);
-//			}
-//		}
-//	)
-//}
-
-
-// MODFIFY ORDER PARAMETER
-function modOrderParam(table){
-	if(table.ajax.params().order[0].dir == "asc"){
-		table.ajax.params().order = ["sorts[username]=1"];
-	} else {
-		table.ajax.params().order = ["sorts[username]=-1"];
-	}
-	sorts = table.ajax.params().order;
-	console.log(table.ajax.params().order);	
-}
-
-
 $(document).ready(function () {
 	var table = $('#address-table').DataTable({
 		"serverSide": true,
@@ -86,7 +81,9 @@ $(document).ready(function () {
 		"ajax": {
 			"url": baseUrl,
 			"beforeSend": function () {
-				modUrlBeforeSend(this);
+				extractorArray(this);
+				mappingSorting();
+				this.url = modUrlBeforeSend(this);
 			},
 			"dataFilter": function(data) {
 				var json = {};
@@ -123,18 +120,6 @@ $(document).ready(function () {
             }
         	]
     });
-
-	
-	$('#address-container').on('click','.DataTables_sort_icon', function() {
-		modOrderParam(table);
-	});
-	
-	
-//	table.on('xhr', function(){
-//		console.log(table.ajax.params().order[0].dir);
-//		
-//		
-//	})
 
 	    // DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
