@@ -144,25 +144,27 @@ $(document).ready(function () {
     var screenWidth = screen.width;
     var screenHeigth = screen.height;
 
+	$('#address-form').load('address-form.html');
+
     //SUBMIT UPDATE DATA
     $('#address-container').on('click', '.updateUser', function() {
-		var userID = table.row($(this).parents('tr')).data();
+		var user = table.row($(this).parents('tr')).data();
 
-        $('#address-form').load('address-form.html').dialog({
+		$("#dialog-form").dialog({
             autoOpen: true,
             modal: true,
             open: function(event){
-
 				// Visualize fields inside modal dialog
-                $('.ui-dialog-title').text("Update User with ID: " + userID.username);
-
+                $('.ui-dialog-title').text("Update User with ID: " + user.username);
 				// (for following values display NOT WORKING at the moment)
-                $("input[type=text][name=name]").val(userID.name);
-                $("input[type=text][name=surname]").val(userID.surname);
-                $("input[type=text][name=email]").val(userID.email);
-                $("input[type=radio][name=gender]").val(userID.gender);
-                $("input[type=hidden][name=username]").val(userID.username);
-                $("input[type=hidden][name=type]").val(userID.type);
+                $("input[type=text][name=name]").val(user.name);
+                $("input[type=text][name=surname]").val(user.surname);
+                $("input[type=text][name=email]").val(user.email);
+                $("input[type=radio][name=gender]").val(user.gender);
+                $("input[type=text][name=username]").val(user.username);
+                $("input[type=hidden][name=type]").val(user.type);
+
+
 				// (above values display NOT WORKING at the moment)
             },
             width: screenWidth / 1.20,
@@ -176,7 +178,7 @@ $(document).ready(function () {
                     var email = $("input[type=text][name=email]").val();
                     console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
                     var gender = $("input[type=radio][name=gender]:checked").val();
-					var username =  $("input[type=hidden][name=username]").val(userID.username);
+					var username =  $("input[type=text][name=username]").val(user.username);
                     var form = $(".address-update");
                     var dataJSON = getFormDataUpdate(form);
 
@@ -240,7 +242,7 @@ $(document).ready(function () {
 						dataType: "json",
 						contentType: "application/json; charset=utf-8",
 						success: function() {
-							alert('Success! All Data are update!');
+							alert('Success! User created!');
 							$(this).dialog("close");
 						}
 					});
