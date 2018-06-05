@@ -1,3 +1,4 @@
+
 #address-container {
 	margin: 1em;
 	background-color: white;
@@ -6,6 +7,22 @@
 
 #address-dataset {
 
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::before {
+	background-color: #8c1818cc;
+}
+
+.ui-icon .ui-icon-caret-2-n-s{
+	   color: #8c1818cc !important;
+}
+
+
+.ui-widget-header {
+    border: 1px solid #fff !important;
+    background: #fff !important;
+    color: #333 !important;
+    font-weight: bold !important;
 }
 
 #action-button {

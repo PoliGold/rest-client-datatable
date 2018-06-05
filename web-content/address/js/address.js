@@ -116,7 +116,7 @@ $(document).ready(function () {
 	var table = $('#address-table').DataTable({
 		"serverSide": true,
 		"processing": true,
-		"searching": false,
+		"searching": true,
 		"ordering": true,
 		"ajax": {
 			"url": baseUrl,
