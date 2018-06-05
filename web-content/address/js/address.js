@@ -4,17 +4,55 @@
 
 var myDraw = 1;
 var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
-var orderColumn;
-var orderDir;
+var assembledURL;
+// multisort variables
+var multiSortURL, temporaryUrl, oldOrderDir, oldColumn, multisorting, orderColumn, orderDir;
 
 function modUrlBeforeSend(obj){
 	var myUrl = URLToArray(obj.url);
 	var pageNumber = (myUrl.start / myUrl.length) + 1;
-	var assembledURL = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
+	assembledURL = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
 	if(orderDir != 0){
 		assembledURL += "&sorts["+orderColumn+"]="+orderDir;
 	}
+	// console.log("modUrlBeforeSend:"+assembledURL);
+	// assembledURL = multiSort();
+	// console.log("multiSortURL: "+ assembledURL);
 	return assembledURL;
+}
+
+//multisort function
+function multiSort(){
+	//first page load Url
+	if(multisorting == null){
+		temporaryUrl = assembledURL;
+		multiSortURL = assembledURL;
+		multisorting = "&sorts["+orderColumn+"]="+orderDir;
+		oldColumn = orderColumn;
+		oldOrderDir = orderDir;
+		return assembledURL + "&sorts["+orderColumn+"]="+orderDir;
+	}
+	///multisort when user is sorting moving from one column to another
+	else {
+		if(orderColumn != oldColumn){
+			multisorting = "&sorts["+orderColumn+"]="+orderDir;
+			temporaryUrl = multiSortURL;
+			multiSortURL += multisorting;
+			// console.log("orderColumn != oldColumn: "+ assembledURL);
+			oldColumn = orderColumn;
+			oldOrderDir = orderDir;
+			return multiSortURL;
+		}
+		///multisort when user is sorting on the same column
+		else if(orderColumn == oldColumn){
+			multiSortURL = temporaryUrl + "&sorts["+orderColumn+"]="+orderDir;
+			multisorting = "&sorts["+orderColumn+"]="+orderDir;
+			console.log("oldColumn: "+ oldColumn + "orderColumn: " + orderColumn);
+			console.log("oldOrderDir: "+ oldOrderDir + "orderDir: " + orderDir);
+			oldOrderDir = orderDir;
+			return multiSortURL;
+		}
+	}
 }
 
 function URLToArray (url) {
@@ -44,11 +82,12 @@ function getFormDataAdd(form) {
 //estrazione stringa object DataTable, converto array in stringa e cerco un carattere specifico in essa
 function extractorArray(obj){
 	var myString = obj.url.toString();
+	// console.log(myString);
 	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
 	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
 	orderColumn = myString.charAt(idxCols + 26);
 	orderDir = myString.charAt(idxDir + 23);
-	}
+}
 
 //mappatura sorting da Default DataTable a parametri Custom
 function mappingSorting(){
@@ -78,6 +117,7 @@ $(document).ready(function () {
 		"serverSide": true,
 		"processing": true,
 		"searching": false,
+		"ordering": true,
 		"ajax": {
 			"url": baseUrl,
 			"beforeSend": function () {
@@ -121,7 +161,7 @@ $(document).ready(function () {
         	]
     });
 
-	    // DELETE FORM
+	// DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
         var getUser = baseUrl + data[0];
@@ -144,7 +184,6 @@ $(document).ready(function () {
     var screenWidth = screen.width;
     var screenHeigth = screen.height;
 
-
     //SUBMIT UPDATE DATA
 	$('#address-form').load('address-form.html');
     $('#address-container').on('click', '.updateUser', function() {
@@ -160,10 +199,9 @@ $(document).ready(function () {
                 $("input[type=text][name=name]").val(user.name);
                 $("input[type=text][name=surname]").val(user.surname);
                 $("input[type=text][name=email]").val(user.email);
-                $("input[type=radio][name=gender]").val(user.gender);
+                $("input[name=gender][value='"+user.gender+"']").prop('checked', true);
                 $("input[type=text][name=username]").val(user.username);
                 $("input[type=hidden][name=type]").val(user.type);
-
 
 				// (above values display NOT WORKING at the moment)
             },
