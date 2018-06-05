@@ -144,9 +144,9 @@ $(document).ready(function () {
     var screenWidth = screen.width;
     var screenHeigth = screen.height;
 
-	$('#address-form').load('address-form.html');
 
     //SUBMIT UPDATE DATA
+	$('#address-form').load('address-form.html');
     $('#address-container').on('click', '.updateUser', function() {
 		var user = table.row($(this).parents('tr')).data();
 
@@ -168,7 +168,7 @@ $(document).ready(function () {
 				// (above values display NOT WORKING at the moment)
             },
             width: screenWidth / 1.20,
-            height: screenHeigth / 1.20,
+            height: screenHeigth / 1.50,
             buttons: {
                 "Update Data": function() {
 
@@ -202,10 +202,11 @@ $(document).ready(function () {
     });
 
 	//NEW ADD USER
+	$('#address-form').load('address-form.html');
 	$('#address-container').on('click', '.address-add', function() {
 	   // var userID = table.row($(this).parents('tr')).data();
 
-		$('#address-form').load('address-form.html').dialog({
+		$('#dialog-form').dialog({
 			autoOpen: true,
 			modal: true,
 			open: function(event){
@@ -216,8 +217,8 @@ $(document).ready(function () {
                  $("input[type=text][name=surname]").val("");
                  $("input[type=text][name=email]").val("");
                  $("input[type=radio][name=gender]").val("");
-				 $("input[type=hidden][name=username]").val("");
-                 $("input[type=hidden][name=type]").val("EXTERNAL");
+				 $("input[type=text][name=username]").val("");
+                 $("input[type=text][name=type]").val("EXTERNAL");
 			},
 			width: screenWidth / 1.80,
 			height: screenHeigth / 1.80,
@@ -230,7 +231,7 @@ $(document).ready(function () {
 					var email = $("input[type=text][name=email]").val();
 					// console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
 					var gender = $("input[type=radio][name=gender]:checked").val();
-					var username = $("input[type=hidden][name=username]").val(null);
+					var username = $("input[type=text][name=username]").val(null);
 					var form = $(".address-update");
 					var dataJSON = getFormDataAdd(form);
 					// console.log(JSON.stringify(dataJSON));
