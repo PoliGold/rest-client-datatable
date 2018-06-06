@@ -25,6 +25,14 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::
     font-weight: bold !important;
 }
 
+.ui-button:hover {
+	background: #8c1818cc !important;
+}
+
+.bordeaux {
+	color: #8c1818cc !important;
+}
+
 #action-button {
 	width: 50px !important;
 }
