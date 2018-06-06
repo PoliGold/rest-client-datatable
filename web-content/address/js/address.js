@@ -8,6 +8,8 @@ var assembledURL;
 // multisort variables
 var multiSortURL, temporaryUrl, oldOrderDir, oldColumn, multisorting, orderColumn, orderDir;
 
+
+//URL BUILDER FUNCTIONS:
 function modUrlBeforeSend(obj){
 	var myUrl = URLToArray(obj.url);
 	var pageNumber = (myUrl.start / myUrl.length) + 1;
@@ -16,12 +18,70 @@ function modUrlBeforeSend(obj){
 		assembledURL += "&sorts["+orderColumn+"]="+orderDir;
 	}
 	// console.log("modUrlBeforeSend:"+assembledURL);
-	// assembledURL = multiSort();
 	// console.log("multiSortURL: "+ assembledURL);
 	return assembledURL;
 }
 
-//multisort function
+function URLToArray (url) {
+	var request = {};
+	var pairs = url.substring(url.indexOf('?') + 1).split('&');
+	for (var i = 0; i < pairs.length; i++) {
+		if (!pairs[i])
+		continue;
+		var pair = pairs[i].split('=');
+		request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+	}
+	return request;
+}
+
+// GET, FORM TO JSON for ADD-USER
+function getFormDataAdd(form) {
+	var unindexed_array = form.serializeArray();
+	var indexed_array = {};
+	unindexed_array[4] = {"name":"username","value":null};
+
+	$.map(unindexed_array, function(n, i) {
+		indexed_array[n['name']] = n['value'];
+	});
+	return indexed_array;
+}
+
+
+// GET, FORM TO JSON for UPDATE-USER
+function getFormDataUpdate(form) {
+	var unindexed_array = form.serializeArray();
+	var indexed_array = {};
+
+	$.map(unindexed_array, function(n, i) {
+		indexed_array[n['name']] = n['value'];
+	});
+	return indexed_array;
+}
+
+////SORT FUNCTIONS:
+//mappatura sorting da Default DataTable a parametri Custom
+function mappingSorting(){
+	orderColumn = document.getElementById(orderColumn).textContent.toLowerCase();
+	if (orderDir == "a"){
+		orderDir = 1;
+	} else if (orderDir == "d"){
+		orderDir = -1;
+	} else {
+		orderDir = 0;
+	}
+}
+
+//estrazione stringa object DataTable, converto array in stringa e cerco un carattere specifico in essa
+function extractorArray(obj){
+	var myString = obj.url.toString();
+	// console.log(myString);
+	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
+	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
+	orderColumn = myString.charAt(idxCols + 26);
+	orderDir = myString.charAt(idxDir + 23);
+}
+
+//MULTISORT FUNCTIONS
 function multiSort(){
 	//first page load Url
 	if(multisorting == null){
@@ -55,63 +115,7 @@ function multiSort(){
 	}
 }
 
-function URLToArray (url) {
-	var request = {};
-	var pairs = url.substring(url.indexOf('?') + 1).split('&');
-	for (var i = 0; i < pairs.length; i++) {
-		if (!pairs[i])
-		continue;
-		var pair = pairs[i].split('=');
-		request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-	}
-	return request;
-}
-
-// GET, FORM TO JSON for ADD-USER
-function getFormDataAdd(form) {
-	var unindexed_array = form.serializeArray();
-	var indexed_array = {};
-	unindexed_array[4] = {"name":"username","value":null};
-
-	$.map(unindexed_array, function(n, i) {
-		indexed_array[n['name']] = n['value'];
-	});
-	return indexed_array;
-}
-
-//estrazione stringa object DataTable, converto array in stringa e cerco un carattere specifico in essa
-function extractorArray(obj){
-	var myString = obj.url.toString();
-	// console.log(myString);
-	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
-	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
-	orderColumn = myString.charAt(idxCols + 26);
-	orderDir = myString.charAt(idxDir + 23);
-}
-
-//mappatura sorting da Default DataTable a parametri Custom
-function mappingSorting(){
-	orderColumn = document.getElementById(orderColumn).textContent.toLowerCase();
-	if (orderDir == "a"){
-		orderDir = 1;
-	} else if (orderDir == "d"){
-		orderDir = -1;
-	} else {
-		orderDir = 0;
-	}
-}
-
-// GET, FORM TO JSON for UPDATE-USER
-function getFormDataUpdate(form) {
-	var unindexed_array = form.serializeArray();
-	var indexed_array = {};
-
-	$.map(unindexed_array, function(n, i) {
-		indexed_array[n['name']] = n['value'];
-	});
-	return indexed_array;
-}
-
+//PAGE LOAD WITH SOCIUMENT READY FUNCTION
 $(document).ready(function () {
 	var table = $('#address-table').DataTable({
 		"serverSide": true,
@@ -160,6 +164,16 @@ $(document).ready(function () {
             }
         	]
     });
+
+// MULTISORT ACTIVATION
+	$('#address-container th').keyup(function (e) {
+		if (e.keyCode == 16) {
+			// assembledURL = multiSort();
+			// extractorArray(this);
+			// mappingSorting();
+			alert("Keycode working");
+		}
+	});
 
 	// DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
