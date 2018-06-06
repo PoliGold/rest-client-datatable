@@ -6,7 +6,7 @@ var myDraw = 1;
 var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
 var assembledURL;
 // multisort variables
-var multiSortURL, temporaryUrl, oldOrderDir, oldColumn, multisorting, orderColumn, orderDir;
+var multisortClicks, multiSortURL, temporaryUrl, oldOrderDir, oldColumn, multisorting, orderColumn, orderDir;
 
 
 //URL BUILDER FUNCTIONS:
@@ -82,6 +82,19 @@ function extractorArray(obj){
 }
 
 //MULTISORT FUNCTIONS
+function multiExtractorArray(obj){
+	var myString = obj.url.toString();
+	// console.log(myString);
+	for(i=1; i<multisortClicks, i++){
+		myString = myString.substring(myString.search("&order%5B0%5D%5Bdir%5D=") + 23);
+	}
+	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
+	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
+	orderColumn = myString.charAt(idxCols + 26);
+	orderDir = myString.charAt(idxDir + 23);
+}
+
+
 function multiSort(){
 	//first page load Url
 	if(multisorting == null){
@@ -114,9 +127,6 @@ function multiSort(){
 		}
 	}
 }
-
-
-
 
 //PAGE LOAD WITH SOCIUMENT READY FUNCTION
 $(document).ready(function () {
@@ -169,17 +179,13 @@ $(document).ready(function () {
     });
 
 // MULTISORT ACTIVATION
-	// $("#address-table").keyup(function (e) {
-	// 	if (e.keyCode == 16) {
-	// 		// assembledURL = multiSort();
-	// 		// extractorArray(this);
-	// 		// mappingSorting();
-	// 		alert("Keycode working");
-	// 	}
-	// });
 	$(document).keydown(function (e) {
 		if (e.keyCode == 16) {
 			$('#address-table th').on('click', function() {
+				// assembledURL = multiSort();
+				// extractorArray(this);
+				// mappingSorting();
+				// multisortClicks ++;
 				alert(e.which + " or Shift was pressed");
 			});
 		}
