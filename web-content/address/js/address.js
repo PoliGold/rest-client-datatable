@@ -178,19 +178,6 @@ $(document).ready(function () {
         	]
     });
 
-// MULTISORT ACTIVATION
-	$(document).keydown(function (e) {
-		if (e.keyCode == 16) {
-			$('#address-table th').on('click', function() {
-				// assembledURL = multiSort();
-				// extractorArray(this);
-				// mappingSorting();
-				// multisortClicks ++;
-				alert(e.which + " or Shift was pressed");
-			});
-		}
-	});
-
 	// DELETE FORM
     $('#address-table tbody').on('click', '.deleteUser', function() {
         var data = table.row($(this).parents('tr')).data();
