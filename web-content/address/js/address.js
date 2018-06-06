@@ -85,7 +85,7 @@ function extractorArray(obj){
 function multiExtractorArray(obj){
 	var myString = obj.url.toString();
 	// console.log(myString);
-	for(i=1; i<multisortClicks, i++){
+	for(i=1; i<multisortClicks; i++){
 		myString = myString.substring(myString.search("&order%5B0%5D%5Bdir%5D=") + 23);
 	}
 	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
