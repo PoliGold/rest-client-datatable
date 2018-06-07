@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>search-form</title>
+	<!-- boostrap 4 -->
+	<link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+</head>
+	<body>
+		<!-- style="display: none;" -->
+		<div id="search-form" title="" class="search-container">
+			<form class="search">
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="name"> Field </label>
+					</div>
+					<div class="col-sm-9">
+						<select>
+						  <option value="search-username">Username</option>
+						  <option value="search-name">Name</option>
+						  <option value="search-surname">Surname</option>
+						  <option value="search-gender">Gender</option>
+						  <option value="search-email">Email</option>
+						</select>
+					</div>
+				</div>	<div class="row">
+						<div class="col-sm-3">
+							<label for="name">Search Criteria</label>
+						</div>
+						<div class="col-sm-9">
+							<select>
+							  <option value="text%">Finds any values that start with the following text</option>
+							  <option value="%text">Finds any values that end with the following text</option>
+							  <option value="%text%">Find any values that contain the following text</option>
+							</select>
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label for="surname">Text</label>
+					</div>
+					<div class="col-sm-2">
+						<input type="text" name="search-text" class="searchText">
+					</div>
+					<div class="col-sm-7">
+						<button type="search-button">Search</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
