@@ -261,7 +261,7 @@ $(document).ready(function () {
 
 	//NEW ADD USER
 	$('#address-form').load('address-form.html');
-	$('#address-container').on('click', '.user-search', function() {
+	$('#address-container').on('click', '.user-add', function() {
 	   // var userID = table.row($(this).parents('tr')).data();
 
 		$('#dialog-form').dialog({
@@ -289,6 +289,7 @@ $(document).ready(function () {
 					var email = $("input[type=text][name=email]").val();
 					// console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
 					var gender = $("input[type=radio][name=gender]:checked").val();
+					console.log(gender);
 					var username = $("input[type=text][name=username]").val(null);
 					var form = $(".address-update");
 					var dataJSON = getFormDataAdd(form);
