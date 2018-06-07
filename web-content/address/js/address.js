@@ -141,9 +141,9 @@ $(document).ready(function () {
 		"ajax": {
 			"url": baseUrl,
 			"beforeSend": function () {
-				console.log(this);
+				// console.log(this);
 				this.url = sortSwitch(this);
-				console.log(this.url);
+				// console.log(this.url);
 				},
 			"dataFilter": function(data) {
 				var json = {};
