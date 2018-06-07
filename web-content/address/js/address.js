@@ -5,22 +5,9 @@
 var myDraw = 1;
 var baseUrl= "http://localhost:8080/rmdw-1.0.0-beta/extrarest/v1.0.0/rmdw/assets/UserEntity";
 var assembledURL;
+
 // multisort variables
-var multisortClicks, multiSortURL, temporaryUrl, oldOrderDir, oldColumn, multisorting, orderColumn, orderDir;
-
-
-//URL BUILDER FUNCTIONS:
-function modUrlBeforeSend(obj){
-	var myUrl = URLToArray(obj.url);
-	var pageNumber = (myUrl.start / myUrl.length) + 1;
-	assembledURL = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
-	if(orderDir != 0){
-		assembledURL += "&sorts["+orderColumn+"]="+orderDir;
-	}
-	// console.log("modUrlBeforeSend:"+assembledURL);
-	// console.log("multiSortURL: "+ assembledURL);
-	return assembledURL;
-}
+var multiSortURL, temporaryUrl, oldOrderDir, oldColumn, multiSorting, orderColumn, orderDir, nameColumn;
 
 function URLToArray (url) {
 	var request = {};
@@ -39,29 +26,68 @@ function getFormDataAdd(form) {
 	var unindexed_array = form.serializeArray();
 	var indexed_array = {};
 	unindexed_array[4] = {"name":"username","value":null};
-
 	$.map(unindexed_array, function(n, i) {
 		indexed_array[n['name']] = n['value'];
 	});
 	return indexed_array;
 }
-
 
 // GET, FORM TO JSON for UPDATE-USER
 function getFormDataUpdate(form) {
 	var unindexed_array = form.serializeArray();
 	var indexed_array = {};
-
 	$.map(unindexed_array, function(n, i) {
 		indexed_array[n['name']] = n['value'];
 	});
 	return indexed_array;
 }
 
-////SORT FUNCTIONS:
+///////////// SORT and MULTISORT FUNCTIONS:
+
+// sortSwitch function ispect the datatables ajax request and call the the function for
+// the multisort or sort depending on the kind of content found in the ajax request.
+function sortSwitch(obj){
+	var myString = obj.url.toString();
+	myString = myString.substring(myString.search("&order%5B") + 24);
+	myString = myString.substring(myString.search("&order%5B") + 21);
+	if(myString.includes("&order%5B")){
+		multiSortRequestExtractor(obj);
+		mappingSorting();
+		return multiSort(obj);
+	} else {
+		sortRequestExtractor(obj);
+		mappingSorting();
+		return modUrlBeforeSend(obj);
+	}
+}
+
+//estrazione stringa object DataTable, converto array in stringa e cerco un carattere specifico in essa
+function sortRequestExtractor(obj){
+	var myString = obj.url.toString();
+	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
+	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
+	orderColumn = myString.charAt(idxCols + 26);
+	orderDir = myString.charAt(idxDir + 23);
+}
+
+//MULTISORT FUNCTIONS
+function multiSortRequestExtractor(obj){
+	var myString = obj.url.toString();
+	var n = (myString.match(/&order%5B/g).length-2)/2;
+	for(i=0; i<n; i++){
+		myString = myString.substring(myString.search("&order%5B") + 24);
+		myString = myString.substring(myString.search("&order%5B") + 21);
+	}
+	var idxCols = myString.search("&order%5B");
+	orderColumn = myString.charAt(idxCols + 26);
+	myString = myString.substring(idxCols + 24);
+	var idxDir = myString.search("&order%5B");
+	orderDir = myString.charAt(idxDir + 23);
+}
+
 //mappatura sorting da Default DataTable a parametri Custom
 function mappingSorting(){
-	orderColumn = document.getElementById(orderColumn).textContent.toLowerCase();
+	nameColumn = document.getElementById(orderColumn).textContent.toLowerCase();
 	if (orderDir == "a"){
 		orderDir = 1;
 	} else if (orderDir == "d"){
@@ -71,60 +97,37 @@ function mappingSorting(){
 	}
 }
 
-//estrazione stringa object DataTable, converto array in stringa e cerco un carattere specifico in essa
-function extractorArray(obj){
-	var myString = obj.url.toString();
-	// console.log(myString);
-	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
-	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
-	orderColumn = myString.charAt(idxCols + 26);
-	orderDir = myString.charAt(idxDir + 23);
-}
-
-//MULTISORT FUNCTIONS
-function multiExtractorArray(obj){
-	var myString = obj.url.toString();
-	// console.log(myString);
-	for(i=1; i<multisortClicks; i++){
-		myString = myString.substring(myString.search("&order%5B0%5D%5Bdir%5D=") + 23);
-	}
-	var idxCols = myString.search("&order%5B0%5D%5Bcolumn%5D=");
-	var idxDir = myString.search("&order%5B0%5D%5Bdir%5D=");
-	orderColumn = myString.charAt(idxCols + 26);
-	orderDir = myString.charAt(idxDir + 23);
-}
-
-
-function multiSort(){
-	//first page load Url
-	if(multisorting == null){
+//URL BUILDER in USE for SORT
+function modUrlBeforeSend(obj){
+	var myUrl = URLToArray(obj.url);
+	var pageNumber = (myUrl.start / myUrl.length) + 1;
+	assembledURL = baseUrl + "?page=" + pageNumber + "&size=" + myUrl.length;
+	if(orderDir != 0){
+		assembledURL += "&sorts["+nameColumn+"]="+orderDir;
 		temporaryUrl = assembledURL;
 		multiSortURL = assembledURL;
-		multisorting = "&sorts["+orderColumn+"]="+orderDir;
 		oldColumn = orderColumn;
 		oldOrderDir = orderDir;
-		return assembledURL + "&sorts["+orderColumn+"]="+orderDir;
 	}
-	///multisort when user is sorting moving from one column to another
-	else {
-		if(orderColumn != oldColumn){
-			multisorting = "&sorts["+orderColumn+"]="+orderDir;
-			temporaryUrl = multiSortURL;
-			multiSortURL += multisorting;
-			// console.log("orderColumn != oldColumn: "+ assembledURL);
-			oldColumn = orderColumn;
-			oldOrderDir = orderDir;
-			return multiSortURL;
-		}
+	return assembledURL;
+}
+
+//MULTISORT FUNCTION
+function multiSort(obj){
+	if(orderColumn != oldColumn){
+		multiSorting = "&sorts["+nameColumn+"]="+orderDir;
+		temporaryUrl = multiSortURL;
+		multiSortURL += multiSorting;
+		oldColumn = orderColumn;
+		oldOrderDir = orderDir;
+		return multiSortURL;
+	}
 		///multisort when user is sorting on the same column
-		else if(orderColumn == oldColumn){
-			multiSortURL = temporaryUrl + "&sorts["+orderColumn+"]="+orderDir;
-			multisorting = "&sorts["+orderColumn+"]="+orderDir;
-			console.log("oldColumn: "+ oldColumn + "orderColumn: " + orderColumn);
-			console.log("oldOrderDir: "+ oldOrderDir + "orderDir: " + orderDir);
-			oldOrderDir = orderDir;
-			return multiSortURL;
-		}
+	else if(orderColumn == oldColumn){
+		multiSortURL = temporaryUrl + "&sorts["+nameColumn+"]="+orderDir;
+		multiSorting = "&sorts["+nameColumn+"]="+orderDir;
+		oldOrderDir = orderDir;
+		return multiSortURL;
 	}
 }
 
@@ -138,10 +141,10 @@ $(document).ready(function () {
 		"ajax": {
 			"url": baseUrl,
 			"beforeSend": function () {
-				extractorArray(this);
-				mappingSorting();
-				this.url = modUrlBeforeSend(this);
-			},
+				console.log(this);
+				this.url = sortSwitch(this);
+				console.log(this.url);
+				},
 			"dataFilter": function(data) {
 				var json = {};
 				var originalJson = jQuery.parseJSON(data);
