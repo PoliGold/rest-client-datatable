@@ -9,7 +9,7 @@
 
 }
 
-table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::before {
+/* table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::before {
 	background-color: #8c1818cc;
 }
 
@@ -31,7 +31,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::
 
 .bordeaux {
 	color: #8c1818cc !important;
-}
+} */
 
 #action-button {
 	width: 50px !important;

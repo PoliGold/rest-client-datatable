@@ -261,7 +261,7 @@ $(document).ready(function () {
 
 	//NEW ADD USER
 	$('#address-form').load('address-form.html');
-	$('#address-container').on('click', '.address-add', function() {
+	$('#address-container').on('click', '.user-search', function() {
 	   // var userID = table.row($(this).parents('tr')).data();
 
 		$('#dialog-form').dialog({
@@ -312,4 +312,14 @@ $(document).ready(function () {
 			}
 		});
 	});
+
+
+	// SEARCH FUNCTION
+	$("#address-table_filter").children().each(function(){
+  		$(this).remove();
+	});
+
+	$("#address-table_filter").append("<button class=\"user-add\">Add new User</button>");
+	$("#address-table_filter").append("<button class=\"user-search\">Search User</button>");
+
 });
