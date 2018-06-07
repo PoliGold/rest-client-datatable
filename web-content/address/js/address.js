@@ -316,8 +316,61 @@ $(document).ready(function () {
 
 
 	// SEARCH FUNCTION
+
+	$('#address-form').load('search-form.html');
+	$('#address-container').on('click', '.user-search', function() {
+	   // var userID = table.row($(this).parents('tr')).data();
+
+		$('#search-form').dialog({
+			autoOpen: true,
+			modal: true,
+			open: function(event){
+
+				// reset fields
+				 // $('.ui-dialog-title').text("Add new user");
+				 // $("input[type=text][name=name]").val("");
+				 // $("input[type=text][name=surname]").val("");
+				 // $("input[type=text][name=email]").val("");
+				 // $("input[type=radio][name=gender]").val("");
+				 // $("input[type=text][name=username]").val("");
+				 // $("input[type=text][name=type]").val("EXTERNAL");
+			},
+			width: screenWidth / 1.80,
+			height: screenHeigth / 1.80,
+			buttons: {
+				"Add User": function() {
+
+				   // assign values to the var and compose the json
+					// var name = $("input[type=text][name=name]").val();
+					// var surname = $("input[type=text][name=surname]").val();
+					// var email = $("input[type=text][name=email]").val();
+					// console.log(JSON.stringify($("input[type=radio][name=gender]:checked")));
+					// var gender = $("input[type=radio][name=gender]:checked").val();
+					// var username = $("input[type=text][name=username]").val(null);
+					// var form = $(".address-update");
+					// var dataJSON = getFormDataAdd(form);
+					// console.log(JSON.stringify(dataJSON));
+
+					$.ajax({
+						url: baseUrl,
+						data: JSON.stringify(dataJSON),
+						method: "POST",
+						dataType: "json",
+						contentType: "application/json; charset=utf-8",
+						success: function() {
+							alert('Success! User created!');
+							$(this).dialog("close");
+						}
+					});
+				},
+				"Cancel": function() {
+					$(this).dialog("close");
+				}
+			}
+		});
+	});
 	$("#address-table_filter").children().each(function(){
-  		$(this).remove();
+		$(this).remove();
 	});
 
 	$("#address-table_filter").append("<button class=\"user-add\">Add new User</button>");
