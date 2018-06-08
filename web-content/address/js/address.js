@@ -317,7 +317,7 @@ $(document).ready(function () {
 
 	// SEARCH FUNCTION
 
-	$('#address-form').load('search-form.html');
+	$('#user-search-form').load('search-form.html');
 	$('#address-container').on('click', '.user-search', function() {
 	   // var userID = table.row($(this).parents('tr')).data();
 
